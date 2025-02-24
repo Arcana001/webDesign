@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- 进度条 -->
+		<style>
+		#loading {
+        	position: fixed;
+        	top: 0;
+        	left: 0;
+        	width: 100%;
+        	height: 4px;
+        	background: #42B8DD;
+        	z-index: 9999;
+        	transform: scaleX(0);
+        	transform-origin: left;
+        	transition: transform 0.4s ease;
+    	}
+		.error-message {
+    	color: red; /* 错误提示文字颜色设为红色 */
+    	font-size: 12px; /* 错误提示文字大小为 12px */
+    	display: none; /* 默认隐藏错误提示信息 */
+		}
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 		<title>Home</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
@@ -24,12 +45,86 @@
 <!-- animated-css -->
 		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
 		<script src="js/wow.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("img.lazy").lazyload({
+					effect: "fadeIn"
+				});
+			});
+		</script>
 		<script>
 		 new WOW().init();
 		</script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const emailForm = document.getElementById('emailForm');
+				const nameForm = document.getElementById('nameForm');
+				const messageForm = document.getElementById('messageForm');
+				const submitForm = document.getElementById('submitForm');
+
+				const emailInput = emailForm.querySelector('input');
+        		const nameInput = nameForm.querySelector('input');
+        		const messageTextarea = messageForm.querySelector('textarea');
+
+				const emailError = document.getElementById('emailError');
+				const nameError = document.getElementById('nameError');
+				const messageError = document.getElementById('messageError');
+		
+				// 为提交表单添加 submit 事件监听器
+				submitForm.addEventListener('submit', function (event) {
+					event.preventDefault();
+					let isValid = true;
+
+					if (emailInput.value.trim() === ''||emailInput.value === 'EMAIL') {
+						emailError.style.display = 'block'; 
+						isValid = false;
+					}else{
+						emailError.style.display = 'none';
+					}
+
+					if (nameInput.value.trim() === ''||nameInput.value === 'NAME') {
+						nameError.style.display = 'block'; 
+						isValid = false;
+					}else{
+						nameError.style.display = 'none'; 
+					}
+
+					if (messageTextarea.value.trim() === ''||messageForm.value === 'MESSAGE') {
+						messageError.style.display = 'block'; 
+						isValid = false;
+					}else{
+						messageError.style.display = 'none'; 
+					}
+
+					if (isValid) {
+					console.log('表单验证通过，可以提交数据');
+					}
+				});
+				// 为其他表单添加 submit 事件监听器，阻止默认提交
+				emailForm.addEventListener('submit', function (event) {
+					event.preventDefault();
+				});
+		
+				nameForm.addEventListener('submit', function (event) {
+					event.preventDefault();
+				});
+		
+				messageForm.addEventListener('submit', function (event) {
+					event.preventDefault();
+				});
+			});
+		</script>
+		<script>
+			$(window).on('load', function() {
+    			$('#loading').css('transform', 'scaleX(1)').delay(400).fadeOut();
+			});
+		</script>
+		
 <!-- animated-css -->
+		            
 	</head>
 	<body>
+		<div id="loading"></div>
 		<!-- header -->
 		<div id="home" class="heder">
 			<!-- container -->
@@ -39,7 +134,7 @@
 						<h1><a href="#">IDDO</a></h1>
 					</div>
 					<div class="top-nav">
-					<span class="menu"><img src="images/menu.png" alt=""></span>
+					<span class="menu"><img class="lazy" data - original="images/menu.png" alt=""></span>
 						<ul class="nav1">
 							<li><a class="scroll" href="#home">Home</a></li>
 							<li><a class="scroll" href="#services">Services</a></li>
@@ -208,7 +303,7 @@
 					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog" class="b-link-stripe b-animate-go">
-						     <img src="images/ball.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/ball.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left    b-delay03 ">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -216,7 +311,7 @@
 					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog1" class="b-link-stripe b-animate-go">
-						     <img src="images/hokey.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/hokey.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left    b-delay03 ">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -224,7 +319,7 @@
 					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog2" class="b-link-stripe b-animate-go">
-						     <img src="images/Football.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/Football.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left b-delay03" id="para">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -232,7 +327,7 @@
 					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog3" class="b-link-stripe b-animate-go">
-						     <img src="images/Football1.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/Football1.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left    b-delay03 ">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -240,7 +335,7 @@
 					<div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog4" class="b-link-stripe b-animate-go">
-						     <img src="images/Icc.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/Icc.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left    b-delay03 ">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -248,7 +343,7 @@
 					<div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;">
 						<div class="portfolio-wrapper wow bounceIn" data-wow-delay="0.4s">		
 							<a href="#small-dialog5" class="b-link-stripe b-animate-go">
-						     <img src="images/ball1.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
+						     <img class="lazy" data - original="images/ball1.png" alt="" /><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">NAME PREJECT</h2>
 							 <p class="b-animate b-from-left    b-delay03 ">designed by Authour | May 23, 2014</p>
 						  	</div></a>
 		                </div>
@@ -302,7 +397,7 @@
 			<!-- Gallery Script Ends -->
 				<div class="clearfix"></div>
 				<div class="plus wow fadeInLeft"> 
-					<a href="#"><img src="images/plus.png" alt="" /></a>
+					<a href="#"><img class="lazy" data - original="images/plus.png" alt="" /></a>
 				</div>
 			</div>
 			<!-- container -->
@@ -340,21 +435,21 @@
 			        <li>
 			          <div class="slider-top wow bounceIn" data-wow-delay="0.4s">
 			          	<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiamvoluptatem."</p>
-			          	<img src="images/user2.png" alt="" />
+			          	<img class="lazy" data - original="images/user2.png" alt="" />
 						<p class="title">Jack Efron</p>
 			          </div>
 			        </li>
 			        <li>
 			          <div class="slider-top wow bounceIn" data-wow-delay="0.4s">
 			          	<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiamvoluptatem."</p>
-			          	<img src="images/user.png" alt="" />
+			          	<img class="lazy" data - original="images/user.png" alt="" />
 						<p class="title">Jack Efron</p>
 			          </div>
 			        </li>
 			        <li>
 			          <div class="slider-top wow bounceIn" data-wow-delay="0.4s">
 			          	<p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiamvoluptatem."</p>
-			          	<img src="images/user1.png" alt="" />
+			          	<img class="lazy" data - original="images/user1.png" alt="" />
 						<p class="title">Jack Efron</p>
 			          </div>
 			        </li>
@@ -375,7 +470,7 @@
 				</div>
 				<div class="team-grids">
 					<div class="col-md-4 team-grid">
-						<img src="images/team.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
+						<img class="lazy" data - original="images/team.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
 						<ul class="plus wow fadeInRight">
 							<li class="twitter"><a href="#"> </a></li>
 							<li class="facebook"><a href="#"> </a></li>
@@ -388,7 +483,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 team-grid">
-						<img src="images/team1.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
+						<img class="lazy" data - original="images/team1.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
 						<ul class="plus wow fadeInRight">
 							<li class="twitter"><a href="#"> </a></li>
 							<li class="facebook"><a href="#"> </a></li>
@@ -401,7 +496,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 team-grid">
-						<img src="images/team2.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
+						<img class="lazy" data - original="images/team2.png" alt="" class="wow bounceIn" data-wow-delay="0.4s" />
 						<ul class="plus wow fadeInRight">
 							<li class="twitter"><a href="#"> </a></li>
 							<li class="facebook"><a href="#"> </a></li>
@@ -416,7 +511,7 @@
 					<div class="clearfix"> </div>
 				</div>
 				<div class="plus wow fadeInLeft"> 
-					<a href="#"><img src="images/plus.png" alt="" /></a>
+					<a href="#"><img class="lazy" data - original="images/plus.png" alt="" /></a>
 				</div>
 			</div>
 			<!-- container -->
@@ -626,11 +721,11 @@
 			<!-- container -->
 			<div class="container">
 				<div class="skills-images wow bounceIn" data-wow-delay="0.4s">
-					<div class="envato"><img src="images/envato.png"></div>
-					<div class="envato"><img src="images/word.png"></div>
-					<div class="envato"><img src="images/dribble.png"></div>
-					<div class="envato"><img src="images/envato.png"></div>
-					<div class="envato"><img src="images/word.png"></div>
+					<div class="envato"><img class="lazy" data - original="images/envato.png"></div>
+					<div class="envato"><img class="lazy" data - original="images/word.png"></div>
+					<div class="envato"><img class="lazy" data - original="images/dribble.png"></div>
+					<div class="envato"><img class="lazy" data - original="images/envato.png"></div>
+					<div class="envato"><img class="lazy" data - original="images/word.png"></div>
 					<div class="clearfix"> </div>
 				</div>
 			</div>
@@ -662,29 +757,32 @@
 				<div class="col-md-8 text-fields">
 					<div class="text-fields-left">
 						<div class="text-field-email">
-							<form>
-								<input type="text" class="text" value="EMAIL" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'EMAIL';}">
+							<form id = "emailForm">
+								<input type="text" class="text" value="EMAIL" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'EMAIL';}" required>
 							</form>
+							<span id="emailError" class="error-message">请输入邮箱地址</span> 
 							<div class="msg-img"></div>
 						</div>
 						<div class="text-field-name">
-							<form>
-								<input type="text" class="text" value="NAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'NAME';}">
+							<form id = "nameForm">
+								<input type="text" class="text" value="NAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'NAME';}" required>
 							</form>
+							<span id="nameError" class="error-message">请输入姓名</span> 
 							<div class="user-img"></div>
 						</div>
 						<div class="clearfix"> </div>
 						<div class="text-field-area wow fadeInLeft">
-							<form>
+							<form id = "messageForm">
 								<textarea value="MESSAGE:" onfocus="if(this.value == 'MESSAGE') this.value='';" onblur="if(this.value == '') this.value='MESSAGE';">MESSAGE</textarea>
 							</form>
+							<span id="messageError" class="error-message">请输入消息内容</span> 
 							<div class="pen-img"></div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4 text-fields">
 					<div class="text-fields-right wow fadeInRight">
-						<form>
+						<form id = "submitForm">
 							<input type="submit" value="Submit">
 						</form>
 					</div>
@@ -704,7 +802,7 @@
 						Copyright &copy; 2014.Company name All rights reserved.<a target="_blank" href="http://guantaow.taobao.com/">厚朴网络淘宝店</a><a target="_blank" href="http://www.moobnn.com">网页模板</a>
 					</p>
 				</div>
-				<a class="scroll" href="#home"><img src="images/up-arrow.png" alt="" /></a>
+				<a class="scroll" href="#home"><img class="lazy" data - original="images/up-arrow.png" alt="" /></a>
 			</div>
 			<!-- container -->
 		</div>
